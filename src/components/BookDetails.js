@@ -32,7 +32,7 @@ function BookDetails(props) {
         }
     }
     return (
-        <div>
+        <div id="book-details">
             <h1>This is detail of the book</h1>
             {displayBookDetail(props)}
         </div>
