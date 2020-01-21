@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import compose from "lodash.flowright";
-import { getAuthorsQuery, addBookMutation } from "./../queries/queries";
+import { getAuthorsQuery, addBookMutation,getBooksQuery } from "./../queries/queries";
 
 class AddBook extends Component {
     constructor(props) {
@@ -28,7 +28,8 @@ class AddBook extends Component {
                 name,
                 genre,
                 authorId
-            }
+            },
+            refetchQueries:[{query:getBooksQuery}]
         }).then(()=>{
             alert("Add book successed")
         });
