@@ -21,7 +21,17 @@ class AddBook extends Component {
         });
     }
     onSubmitted = (event) => {
+        const { name, genre, authorId } = this.state;
         event.preventDefault();
+        this.props.addBookMutation({
+            variables: {
+                name,
+                genre,
+                authorId
+            }
+        }).then(()=>{
+            alert("Add book successed")
+        });
     }
     displayAuthors(props) {
         let data = props.getAuthorsQuery
@@ -34,7 +44,7 @@ class AddBook extends Component {
         }
     }
     render() {
-        const { name, genre, authorId } = this.state;
+        const { name, genre } = this.state;
         return (
             <form id="add-book" onSubmit={this.onSubmitted}>
                 <div className="field">
@@ -57,11 +67,7 @@ class AddBook extends Component {
                 </div>
                 <div className="field">
                     <label>Author:</label>
-                    <select
-                        name="authorId"
-                        value={authorId}
-                        onChange={this.onChangeValue}
-                    >
+                    <select name="authorId" onChange={this.onChangeValue} >
                         {this.displayAuthors(this.props)}
                     </select>
                 </div>
@@ -72,6 +78,6 @@ class AddBook extends Component {
 }
 
 export default compose(
-    graphql(getAuthorsQuery,{name:"getAuthorsQuery"}),
-    graphql(addBookMutation,{name:"addBookMutation"})
+    graphql(getAuthorsQuery, { name: "getAuthorsQuery" }),
+    graphql(addBookMutation, { name: "addBookMutation" })
 )(AddBook);
